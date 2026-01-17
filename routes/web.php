@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Bidan\DashboardController as BidanDashboard;
+use App\Http\Controllers\Desa\AnakController;
 use App\Http\Controllers\Desa\DashboardController as DesaDashboard;
+use App\Http\Controllers\Desa\WargaController;
 use App\Http\Controllers\User\DashboardController as UserDashboard;
 /*
 |--------------------------------------------------------------------------
@@ -26,10 +28,18 @@ Route::middleware(['auth', 'role:bidan'])->group(function () {
         ->name('bidan.dashboard');
 });
 
-Route::middleware(['auth', 'role:petugas_desa'])->group(function () {
-    Route::get('/desa/dashboard', [DesaDashboard::class, 'index'])
-        ->name('desa.dashboard');
-});
+Route::middleware(['auth', 'role:petugas_desa'])
+    ->prefix('desa')
+    ->name('desa.')
+    ->group(function () {
+
+        Route::get('/dashboard', [DesaDashboard::class, 'index'])
+            ->name('dashboard');
+
+        Route::resource('/warga', WargaController::class);
+        Route::resource('anak', AnakController::class);
+    });
+
 
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/user/dashboard', [UserDashboard::class, 'index'])
