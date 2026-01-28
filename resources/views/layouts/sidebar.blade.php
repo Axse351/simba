@@ -1,3 +1,18 @@
+<style>
+    /* Spasi submenu sidebar */
+    .sidebar-menu .dropdown-menu li a {
+        padding: 10px 20px;
+        line-height: 1.6;
+    }
+
+    .sidebar-menu .dropdown-menu li {
+        margin-bottom: 4px;
+    }
+
+    .sidebar-menu .dropdown-menu li a i {
+        margin-right: 10px;
+    }
+</style>
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
 
@@ -58,6 +73,32 @@
                             <a class="nav-link" href="{{ route('desa.anak.index') }}">
                                 <i class="fas fa-baby"></i>
                                 Data Anak
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                {{-- JADWAL POSYANDU --}}
+                {{-- JADWAL POSYANDU --}}
+                <li class="dropdown {{ request()->is('desa/jadwal-posyandu*') ? 'active' : '' }}">
+                    <a href="#" class="nav-link has-dropdown">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Jadwal Posyandu</span>
+                    </a>
+
+                    <ul class="dropdown-menu">
+
+                        <li class="{{ request()->routeIs('desa.jadwal-posyandu.index') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('desa.jadwal-posyandu.index') }}">
+                                <i class="fas fa-list"></i>
+                                Kelola Jadwal
+                            </a>
+                        </li>
+
+                        <li class="{{ request()->routeIs('desa.jadwal-posyandu.rekap') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('desa.jadwal-posyandu.rekap') }}">
+                                <i class="fas fa-chart-bar"></i>
+                                Rekap Kehadiran Bulanan
                             </a>
                         </li>
 

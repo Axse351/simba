@@ -7,6 +7,9 @@ use App\Http\Controllers\Desa\AnakController;
 use App\Http\Controllers\Desa\DashboardController as DesaDashboard;
 use App\Http\Controllers\Desa\WargaController;
 use App\Http\Controllers\User\DashboardController as UserDashboard;
+use App\Http\Controllers\Desa\JadwalPosyanduController;
+use App\Http\Controllers\Desa\KehadiranPosyanduController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,8 +39,27 @@ Route::middleware(['auth', 'role:petugas_desa'])
         Route::get('/dashboard', [DesaDashboard::class, 'index'])
             ->name('dashboard');
 
+        // MASTER DATA
         Route::resource('/warga', WargaController::class);
-        Route::resource('anak', AnakController::class);
+        Route::resource('/anak', AnakController::class);
+
+        // ================= JADWAL POSYANDU =================
+        Route::resource(
+            'jadwal-posyandu',
+            JadwalPosyanduController::class
+        );
+
+        // Rekap kehadiran bulanan
+        Route::get(
+            'jadwal-posyandu-rekap',
+            [KehadiranPosyanduController::class, 'rekapBulanan']
+        )->name('jadwal-posyandu.rekap');
+
+        // Input kehadiran per jadwal
+        Route::post(
+            'jadwal-posyandu/{jadwal}/kehadiran',
+            [KehadiranPosyanduController::class, 'store']
+        )->name('jadwal-posyandu.kehadiran.store');
     });
 
 
