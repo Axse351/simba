@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Bidan\ArtikelKesehatanController;
 use App\Http\Controllers\Bidan\DashboardController as BidanDashboard;
 use App\Http\Controllers\Desa\AnakController;
 use App\Http\Controllers\Desa\DashboardController as DesaDashboard;
@@ -39,6 +40,7 @@ Route::middleware(['auth', 'role:bidan'])->group(function () {
 
     Route::get('/bidan/anak', [AnakController::class, 'index'])
         ->name('bidan.anak.index');
+    Route::resource('artikel', ArtikelKesehatanController::class);
 });
 
 Route::middleware(['auth', 'role:petugas_desa'])

@@ -85,6 +85,12 @@
 
                     </ul>
                 </li>
+                <li class="{{ request()->routeIs('bidan.artikel.*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('artikel.index') }}">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Artikel Kesehatan</span>
+                    </a>
+                </li>
             @endif
 
 
