@@ -56,7 +56,13 @@
                                         <a href="{{ route('desa.anak.edit', $item->id) }}" class="btn btn-sm btn-warning">
                                             Edit
                                         </a>
+                                        <a href="{{ route('desa.anak.grafik', $item->id) }}" class="btn btn-sm btn-info">
+                                            <i class="fas fa-chart-line"></i> Grafik
+                                        </a>
 
+                                        <a href="{{ route('desa.anak.cetak', $item->id) }}" class="btn btn-sm btn-success">
+                                            <i class="fas fa-print"></i> Cetak
+                                        </a>
                                         <form action="{{ route('desa.anak.destroy', $item->id) }}" method="POST"
                                             class="d-inline" onsubmit="return confirm('Hapus data ini?')">
                                             @csrf

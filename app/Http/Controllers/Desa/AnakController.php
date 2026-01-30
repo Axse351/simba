@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Desa;
 
 use App\Http\Controllers\Controller;
 use App\Models\Anak;
+use App\Models\KmsAnak;
 use App\Models\Warga;
 use Illuminate\Http\Request;
 
@@ -76,5 +77,25 @@ class AnakController extends Controller
         $anak->delete();
 
         return back()->with('success', 'Data anak berhasil dihapus');
+    }
+
+
+    public function grafik($id)
+    {
+        $anak = Anak::with('ibu')->findOrFail($id);
+
+        $kms = KmsAnak::where('anak_id', $id)
+            ->orderBy('usia_bulan')
+            ->get();
+
+        return view('desa.anak.grafik', compact('anak', 'kms'));
+    }
+
+    public function cetak($id)
+    {
+        $anak = Anak::with('ibu')->findOrFail($id);
+        $kms = KmsAnak::where('anak_id', $id)->get();
+
+        return view('desa.anak.cetak', compact('anak', 'kms'));
     }
 }

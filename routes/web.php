@@ -9,6 +9,7 @@ use App\Http\Controllers\Desa\WargaController;
 use App\Http\Controllers\User\DashboardController as UserDashboard;
 use App\Http\Controllers\Desa\JadwalPosyanduController;
 use App\Http\Controllers\Desa\KehadiranPosyanduController;
+use App\Http\Controllers\KmsAnakController;
 use App\Http\Controllers\KmsIbuController;
 
 /*
@@ -32,6 +33,12 @@ Route::middleware(['auth', 'role:bidan'])->group(function () {
         ->name('bidan.dashboard');
     Route::resource('kms-ibu', KmsIbuController::class);
     Route::resource('kms-anak', KmsAnakController::class);
+
+    Route::get('/bidan/warga', [WargaController::class, 'index'])
+        ->name('bidan.warga.index');
+
+    Route::get('/bidan/anak', [AnakController::class, 'index'])
+        ->name('bidan.anak.index');
 });
 
 Route::middleware(['auth', 'role:petugas_desa'])
@@ -63,6 +70,12 @@ Route::middleware(['auth', 'role:petugas_desa'])
             'jadwal-posyandu/{jadwal}/kehadiran',
             [KehadiranPosyanduController::class, 'store']
         )->name('jadwal-posyandu.kehadiran.store');
+
+        Route::get('/anak/{anak}/grafik', [AnakController::class, 'grafik'])
+            ->name('anak.grafik');
+
+        Route::get('/anak/{anak}/cetak', [AnakController::class, 'cetak'])
+            ->name('anak.cetak');
     });
 
 

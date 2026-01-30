@@ -7,9 +7,11 @@
         <div class="section-header">
             <h1>Data Warga</h1>
             <div class="section-header-button">
-                <a href="{{ route('desa.warga.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Tambah Warga
-                </a>
+                @if (auth()->user()->role === 'desa')
+                    <a href="{{ route('desa.warga.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Tambah Warga
+                    </a>
+                @endif
             </div>
         </div>
 
