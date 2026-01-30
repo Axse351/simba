@@ -9,6 +9,7 @@ use App\Http\Controllers\Desa\WargaController;
 use App\Http\Controllers\User\DashboardController as UserDashboard;
 use App\Http\Controllers\Desa\JadwalPosyanduController;
 use App\Http\Controllers\Desa\KehadiranPosyanduController;
+use App\Http\Controllers\KmsIbuController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,8 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware(['auth', 'role:bidan'])->group(function () {
     Route::get('/bidan/dashboard', [BidanDashboard::class, 'index'])
         ->name('bidan.dashboard');
+    Route::resource('kms-ibu', KmsIbuController::class);
+    Route::resource('kms-anak', KmsAnakController::class);
 });
 
 Route::middleware(['auth', 'role:petugas_desa'])

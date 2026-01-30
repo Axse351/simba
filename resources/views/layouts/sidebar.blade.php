@@ -26,21 +26,43 @@
 
         <ul class="sidebar-menu">
 
-            {{-- ================= BIDAN ================= --}}
-            @if (auth()->user()->role === 'bidan')
-                <li class="menu-header">BIDAN</li>
+          {{-- ================= BIDAN ================= --}}
+@if (auth()->user()->role === 'bidan')
+    <li class="menu-header">BIDAN</li>
 
-                <li class="{{ request()->routeIs('bidan.dashboard') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('bidan.dashboard') }}">
-                        <i class="fas fa-home"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
+    <li class="{{ request()->routeIs('bidan.dashboard') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('bidan.dashboard') }}">
+            <i class="fas fa-home"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
 
-                {{-- nanti bisa ditambah --}}
-                {{-- Data Pemeriksaan --}}
-                {{-- Grafik Pertumbuhan --}}
-            @endif
+    {{-- DATA KMS --}}
+    <li class="dropdown {{ request()->is('bidan/kms-*') ? 'active' : '' }}">
+        <a href="#" class="nav-link has-dropdown">
+            <i class="fas fa-notes-medical"></i>
+            <span>Data KMS</span>
+        </a>
+
+        <ul class="dropdown-menu">
+
+            <li class="{{ request()->routeIs('bidan.kms-ibu.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('kms-ibu.index') }}">
+                    <i class="fas fa-female"></i>
+                    KMS Ibu
+                </a>
+            </li>
+
+            <li class="{{ request()->routeIs('bidan.kms-anak.*') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('kms-anak.index') }}">
+                    <i class="fas fa-baby"></i>
+                    KMS Anak
+                </a>
+            </li>
+
+        </ul>
+    </li>
+@endif
 
 
             {{-- ================= PETUGAS DESA ================= --}}
