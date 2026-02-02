@@ -64,7 +64,7 @@ class ArtikelKesehatanController extends Controller
         ]);
 
         return redirect()
-            ->route('bidan.artikel.index')
+            ->route('artikel.index')
             ->with('success', 'Artikel berhasil disimpan');
     }
 
@@ -75,7 +75,7 @@ class ArtikelKesehatanController extends Controller
     {
         $this->authorizeArtikel($artikel);
 
-        return view('bidan.artikel.edit', compact('artikel'));
+        return view('artikel.edit', compact('artikel'));
     }
 
     /**
@@ -114,7 +114,7 @@ class ArtikelKesehatanController extends Controller
         ]);
 
         return redirect()
-            ->route('bidan.artikel.index')
+            ->route('artikel.index')
             ->with('success', 'Artikel berhasil diperbarui');
     }
 

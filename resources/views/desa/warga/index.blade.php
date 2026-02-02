@@ -7,7 +7,7 @@
         <div class="section-header">
             <h1>Data Warga</h1>
             <div class="section-header-button">
-                @if (auth()->user()->role === 'desa')
+                @if (auth()->user()->role === 'petugas_desa')
                     <a href="{{ route('desa.warga.create') }}" class="btn btn-primary">
                         <i class="fas fa-plus"></i> Tambah Warga
                     </a>
@@ -58,6 +58,12 @@
                                             <a href="{{ route('desa.warga.edit', $warga->id) }}"
                                                 class="btn btn-sm btn-warning">
                                                 <i class="fas fa-edit"></i>
+                                            </a>
+                                            <a href="{{ auth()->user()->role === 'bidan'
+                                                ? route('bidan.warga.grafik', $warga->id)
+                                                : route('desa.warga.grafik', $warga->id) }}"
+                                                class="btn btn-sm btn-info">
+                                                <i class="fas fa-chart-line"></i>
                                             </a>
                                         </td>
                                     </tr>

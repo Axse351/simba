@@ -41,6 +41,14 @@ Route::middleware(['auth', 'role:bidan'])->group(function () {
     Route::get('/bidan/anak', [AnakController::class, 'index'])
         ->name('bidan.anak.index');
     Route::resource('artikel', ArtikelKesehatanController::class);
+
+    Route::get('/bidan/anak/{anak}/grafik', [AnakController::class, 'grafik'])
+        ->name('bidan.anak.grafik');
+
+    Route::get('/bidan/anak/{anak}/cetak', [AnakController::class, 'cetak'])
+        ->name('bidan.anak.cetak');
+    Route::get('/bidan/warga/{warga}/grafik', [WargaController::class, 'grafik'])
+        ->name('bidan.warga.grafik');
 });
 
 Route::middleware(['auth', 'role:petugas_desa'])
@@ -78,6 +86,8 @@ Route::middleware(['auth', 'role:petugas_desa'])
 
         Route::get('/anak/{anak}/cetak', [AnakController::class, 'cetak'])
             ->name('anak.cetak');
+        Route::get('/warga/{warga}/grafik', [WargaController::class, 'grafik'])
+            ->name('warga.grafik');
     });
 
 

@@ -56,13 +56,32 @@
                                         <a href="{{ route('desa.anak.edit', $item->id) }}" class="btn btn-sm btn-warning">
                                             Edit
                                         </a>
-                                        <a href="{{ route('desa.anak.grafik', $item->id) }}" class="btn btn-sm btn-info">
-                                            <i class="fas fa-chart-line"></i> Grafik
-                                        </a>
+                                        @if (auth()->user()->role === 'bidan')
+                                            <a href="{{ auth()->user()->role === 'bidan'
+                                                ? route('bidan.anak.grafik', $item->id)
+                                                : route('desa.anak.grafik', $item->id) }}"
+                                                class="btn btn-sm btn-info">
+                                                <i class="fas fa-chart-line"></i> Grafik
+                                            </a>
 
-                                        <a href="{{ route('desa.anak.cetak', $item->id) }}" class="btn btn-sm btn-success">
-                                            <i class="fas fa-print"></i> Cetak
-                                        </a>
+                                            <a href="{{ auth()->user()->role === 'bidan'
+                                                ? route('bidan.anak.cetak', $item->id)
+                                                : route('desa.anak.cetak', $item->id) }}"
+                                                class="btn btn-sm btn-success">
+                                                <i class="fas fa-print"></i> Cetak
+                                            </a>
+                                        @endif
+                                        @if (auth()->user()->role === 'desa')
+                                            <a href="{{ route('desa.anak.grafik', $item->id) }}"
+                                                class="btn btn-sm btn-info">
+                                                <i class="fas fa-chart-line"></i> Grafik
+                                            </a>
+
+                                            <a href="{{ route('desa.anak.cetak', $item->id) }}"
+                                                class="btn btn-sm btn-success">
+                                                <i class="fas fa-print"></i> Cetak
+                                            </a>
+                                        @endif
                                         <form action="{{ route('desa.anak.destroy', $item->id) }}" method="POST"
                                             class="d-inline" onsubmit="return confirm('Hapus data ini?')">
                                             @csrf

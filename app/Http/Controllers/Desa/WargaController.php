@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Desa;
 
 use App\Http\Controllers\Controller;
+use App\Models\Anak;
 use App\Models\Warga;
 use Illuminate\Http\Request;
 
@@ -83,5 +84,14 @@ class WargaController extends Controller
         return redirect()
             ->route('desa.warga.index')
             ->with('success', 'Data warga berhasil dihapus');
+    }
+
+    public function grafik($id)
+    {
+        $warga = Warga::with(['kmsIbu' => function ($q) {
+            $q->orderBy('tanggal_pemeriksaan');
+        }])->findOrFail($id);
+
+        return view('desa.warga.grafik', compact('warga'));
     }
 }

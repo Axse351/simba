@@ -14,4 +14,5 @@ class KmsIbu extends Model
     {
         return $this->belongsTo(Warga::class);
     }
+    
 }

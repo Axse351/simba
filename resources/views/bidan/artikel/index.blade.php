@@ -49,12 +49,12 @@
                                     {{ $item->published_at ? $item->published_at->format('d-m-Y') : '-' }}
                                 </td>
                                 <td>
-                                    <a href="{{ route('bidan.artikel.edit', $item->id) }}" class="btn btn-sm btn-warning">
+                                    <a href="{{ route('artikel.edit', $item->id) }}" class="btn btn-sm btn-warning">
                                         <i class="fas fa-edit"></i>
                                     </a>
 
-                                    <form action="{{ route('bidan.artikel.destroy', $item->id) }}" method="POST"
-                                        class="d-inline" onsubmit="return confirm('Hapus artikel ini?')">
+                                    <form action="{{ route('artikel.destroy', $item->id) }}" method="POST" class="d-inline"
+                                        onsubmit="return confirm('Hapus artikel ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-sm btn-danger">

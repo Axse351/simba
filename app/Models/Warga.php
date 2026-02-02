@@ -15,4 +15,9 @@ class Warga extends Model
     {
         return $this->hasMany(Anak::class);
     }
+
+    public function kmsIbu()
+    {
+        return $this->hasMany(KmsIbu::class, 'warga_id');
+    }
 }
