@@ -10,5 +10,7 @@ class ArtikelKesehatan extends Model
     use HasFactory;
     protected $table = 'artikel_kesehatan';
     protected $guarded = ['id'];
-    
+    protected $casts = [
+        'published_at' => 'datetime',
+    ];
 }

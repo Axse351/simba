@@ -94,4 +94,7 @@ Route::middleware(['auth', 'role:petugas_desa'])
 Route::middleware(['auth', 'role:user'])->group(function () {
     Route::get('/user/dashboard', [UserDashboard::class, 'index'])
         ->name('user.dashboard');
+
+    Route::get('/artikel/{id}', [UserDashboard::class, 'show'])
+        ->name('artikel.show');
 });

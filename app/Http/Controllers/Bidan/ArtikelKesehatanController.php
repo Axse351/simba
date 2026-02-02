@@ -75,7 +75,7 @@ class ArtikelKesehatanController extends Controller
     {
         $this->authorizeArtikel($artikel);
 
-        return view('artikel.edit', compact('artikel'));
+        return view('bidan.artikel.edit', compact('artikel'));
     }
 
     /**
@@ -133,6 +133,8 @@ class ArtikelKesehatanController extends Controller
 
         return back()->with('success', 'Artikel berhasil dihapus');
     }
+
+
 
     /**
      * Cegah bidan edit artikel orang lain
