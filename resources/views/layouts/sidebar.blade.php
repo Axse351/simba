@@ -85,7 +85,7 @@
 
                     </ul>
                 </li>
-                <li class="{{ request()->routeIs('bidan.artikel.*') ? 'active' : '' }}">
+                <li class="{{ request()->routeIs('artikel.*') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('artikel.index') }}">
                         <i class="fas fa-newspaper"></i>
                         <span>Artikel Kesehatan</span>
@@ -130,7 +130,6 @@
                     </ul>
                 </li>
                 {{-- JADWAL POSYANDU --}}
-                {{-- JADWAL POSYANDU --}}
                 <li class="dropdown {{ request()->is('desa/jadwal-posyandu*') ? 'active' : '' }}">
                     <a href="#" class="nav-link has-dropdown">
                         <i class="fas fa-calendar-alt"></i>
@@ -169,12 +168,63 @@
                     </a>
                 </li>
 
-                {{-- nanti --}}
-                {{-- Riwayat Anak --}}
-                {{-- Jadwal Posyandu --}}
+                <li class="{{ request()->routeIs('user.artikel.*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('user.artikel.index') }}">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Artikel Kesehatan</span>
+                    </a>
+                </li>
+
+                <li class="menu-header">LAYANAN</li>
+
+                {{-- CHATBOT - Klik untuk buka chat --}}
+                <li>
+                    <a class="nav-link chatbot-trigger" href="javascript:void(0);">
+                        <i class="fas fa-robot"></i>
+                        <span>Asisten Kesehatan</span>
+                        <span class="badge badge-primary">AI</span>
+                    </a>
+                </li>
             @endif
 
         </ul>
 
     </aside>
 </div>
+
+{{-- Script untuk trigger chatbot --}}
+@if (auth()->user()->role === 'user')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Trigger chatbot saat link di sidebar diklik
+    const chatbotTrigger = document.querySelector('.chatbot-trigger');
+
+    if (chatbotTrigger) {
+        chatbotTrigger.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            // Tunggu sebentar untuk memastikan chatbot widget sudah dimuat
+            setTimeout(function() {
+                const chatbotToggle = document.getElementById('chatbot-toggle');
+                const chatbotWindow = document.getElementById('chatbot-window');
+
+                if (chatbotToggle && chatbotWindow) {
+                    // Toggle chatbot window
+                    if (chatbotWindow.style.display === 'none' || !chatbotWindow.style.display) {
+                        chatbotWindow.style.display = 'flex';
+                        // Focus pada input
+                        setTimeout(function() {
+                            document.getElementById('chatbot-message-input')?.focus();
+                        }, 100);
+                    } else {
+                        chatbotWindow.style.display = 'none';
+                    }
+                } else {
+                    alert('Chatbot hanya tersedia di halaman Dashboard dan Artikel');
+                }
+            }, 100);
+        });
+    }
+});
+</script>
+@endif

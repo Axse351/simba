@@ -41,7 +41,13 @@
 
             @include('layouts.footer')
         </div>
+          {{-- CHATBOT WIDGET - Hanya untuk USER --}}
+    @if (auth()->check() && auth()->user()->role === 'user')
+        @include('components.chatbot-widget')
+    @endif
     </div>
+
+
 
     <!-- General JS Scripts -->
     <script src="{{ asset('assets/modules/jquery.min.js') }}"></script>
@@ -56,8 +62,6 @@
     <script src="{{ asset('assets/modules/chart.min.js') }}"></script>
     <script src="{{ asset('assets/modules/owlcarousel2/dist/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('assets/modules/summernote/summernote-bs4.js') }}"></script>
-
-    @stack('scripts')
 
     <script src="{{ asset('assets/js/scripts.js') }}"></script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>

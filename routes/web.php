@@ -8,6 +8,7 @@ use App\Http\Controllers\Desa\AnakController;
 use App\Http\Controllers\Desa\DashboardController as DesaDashboard;
 use App\Http\Controllers\Desa\WargaController;
 use App\Http\Controllers\User\DashboardController as UserDashboard;
+use App\Http\Controllers\User\ChatbotController;
 use App\Http\Controllers\Desa\JadwalPosyanduController;
 use App\Http\Controllers\Desa\KehadiranPosyanduController;
 use App\Http\Controllers\KmsAnakController;
@@ -17,11 +18,6 @@ use App\Http\Controllers\KmsIbuController;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
 Route::get('/', fn() => redirect()->route('login'));
@@ -29,6 +25,7 @@ Route::get('/login', [LoginController::class, 'showLogin'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
+// ====================== BIDAN ROUTES ======================
 Route::middleware(['auth', 'role:bidan'])->group(function () {
     Route::get('/bidan/dashboard', [BidanDashboard::class, 'index'])
         ->name('bidan.dashboard');
@@ -51,6 +48,7 @@ Route::middleware(['auth', 'role:bidan'])->group(function () {
         ->name('bidan.warga.grafik');
 });
 
+// ====================== PETUGAS DESA ROUTES ======================
 Route::middleware(['auth', 'role:petugas_desa'])
     ->prefix('desa')
     ->name('desa.')
@@ -90,11 +88,31 @@ Route::middleware(['auth', 'role:petugas_desa'])
             ->name('warga.grafik');
     });
 
+// ====================== USER ROUTES ======================
+Route::middleware(['auth', 'role:user'])
+    ->prefix('user')
+    ->name('user.')
+    ->group(function () {
 
-Route::middleware(['auth', 'role:user'])->group(function () {
-    Route::get('/user/dashboard', [UserDashboard::class, 'index'])
-        ->name('user.dashboard');
+        // Dashboard - Menampilkan beberapa artikel terbaru
+        Route::get('/dashboard', [UserDashboard::class, 'index'])
+            ->name('dashboard');
 
-    Route::get('/artikel/{id}', [UserDashboard::class, 'show'])
-        ->name('artikel.show');
-});
+        // Halaman daftar semua artikel
+        Route::get('/artikel', [UserDashboard::class, 'artikelIndex'])
+            ->name('artikel.index');
+
+        // Detail artikel
+        Route::get('/artikel/{id}', [UserDashboard::class, 'show'])
+            ->name('artikel.show');
+
+        // ================= CHATBOT ROUTES =================
+        Route::post('/chatbot/send', [ChatbotController::class, 'sendMessage'])
+            ->name('chatbot.send');
+
+        Route::get('/chatbot/history', [ChatbotController::class, 'getHistory'])
+            ->name('chatbot.history');
+
+        Route::delete('/chatbot/history', [ChatbotController::class, 'clearHistory'])
+            ->name('chatbot.clear');
+    });
